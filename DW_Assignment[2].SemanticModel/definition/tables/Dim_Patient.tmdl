@@ -1,0 +1,73 @@
+table Dim_Patient
+	lineageTag: 477ea537-0044-4123-8ff3-230e020ae9e7
+
+	column Patient_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 262aff1f-7bed-449e-9e56-780621e34a51
+		summarizeBy: none
+		sourceColumn: Patient_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column First_Name
+		dataType: string
+		lineageTag: c28ae3dc-cd0e-4284-b5b7-1a7eaa8ee83b
+		summarizeBy: none
+		sourceColumn: First_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Last_Name
+		dataType: string
+		lineageTag: c5e6fa04-e911-4764-8711-6f98f3a447f5
+		summarizeBy: none
+		sourceColumn: Last_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: db4736dc-47d0-4063-a982-623505443467
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: a8926150-3dc5-400e-a6f8-5e2f98d04831
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 5e65bd3c-c283-4de0-9222-f6f18b49f8be
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Insurance_Status
+		dataType: string
+		lineageTag: 0d4e8fc8-5846-4def-b440-5350dfc9d0fd
+		summarizeBy: none
+		sourceColumn: Insurance_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Patient = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-1CG7JKN\SQLEXPRESS"),
+				    HealthcareDW = Source{[Name="HealthcareDW"]}[Data],
+				    dbo_Dim_Patient = HealthcareDW{[Schema="dbo",Item="Dim_Patient"]}[Data]
+				in
+				    dbo_Dim_Patient
+
+	annotation PBI_ResultType = Table
+

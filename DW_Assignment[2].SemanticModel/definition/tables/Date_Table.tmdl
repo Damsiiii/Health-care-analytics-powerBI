@@ -1,0 +1,74 @@
+table Date_Table
+	lineageTag: 73d187a6-b6a0-46aa-8ac4-a1c64059687e
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: 5454d035-d4b2-4ca2-990f-86e53946ca74
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		formatString: 0
+		lineageTag: 7993aa59-93fc-4a2c-9847-05ba63994427
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		formatString: 0
+		lineageTag: 8979b5d0-4906-455f-a675-539b143f7aad
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		lineageTag: 31e4ad42-eee6-448b-806d-0e6606c12f54
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 3c80378f-dc68-4b1d-844a-a0a50696fd5d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: f9c7b4c5-1727-4eb6-85ad-7a6052071a8c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date_Table = calculated
+		mode: import
+		source = ```
+				
+				ADDCOLUMNS (
+				    CALENDAR (DATE(2023,1,1), DATE(2025,12,31)),
+				    "Day", DAY ( [Date] ),
+				    "Month", MONTH ( [Date] ),
+				    "MonthName", FORMAT ( [Date], "MMMM" ),
+				    "Quarter", "Q" & FORMAT ( [Date], "Q" ),
+				    "Year", YEAR ( [Date] )
+				)
+				
+				```
+
+	annotation PBI_Id = e2848a2e4fb84a7ea0da81a56bbbea56
+

@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-BB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Dim_Date","Dim_Doctor","Dim_Patient","Dim_Treatment","Fact_PatientVisits"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.145.1457.0 (25.07)+6e87ffa743c5aa106a85a0b5e383d76d522045ba
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Dim_Date
+ref table DateTableTemplate_cd957f00-98a8-44e1-b9ba-f1d2315fb786
+ref table LocalDateTable_a7db2b6b-ca2b-4a1b-b2e7-88fd7b33a850
+ref table Dim_Doctor
+ref table Dim_Patient
+ref table Dim_Treatment
+ref table Fact_PatientVisits
+ref table MeasureTable
+ref table Date_Table
+
+ref cultureInfo en-US
+

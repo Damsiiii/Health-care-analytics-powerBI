@@ -1,0 +1,35 @@
+relationship 37115f96-1b20-467d-a99b-4e0e214bc996
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Date.Full_Date
+	toColumn: LocalDateTable_a7db2b6b-ca2b-4a1b-b2e7-88fd7b33a850.Date
+
+relationship 0b75c450-f0af-45b4-9655-9e6e1a8a47b0
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Fact_PatientVisits.Date_ID
+	toColumn: Dim_Date.Date_ID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 7842b741-95e3-4ae1-a4ab-f2b00235c2f5
+	fromColumn: Fact_PatientVisits.Doctor_ID
+	toColumn: Dim_Doctor.Doctor_ID
+
+	annotation PBI_IsFromSource = FS
+
+relationship ecfb090f-0d06-4000-8816-047b97ab8f29
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Fact_PatientVisits.Patient_ID
+	toColumn: Dim_Patient.Patient_ID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9b213fb4-f3c6-4c14-a1da-c75ecad9a1c8
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Fact_PatientVisits.Treatment_ID
+	toColumn: Dim_Treatment.Treatment_ID
+
+	annotation PBI_IsFromSource = FS
+

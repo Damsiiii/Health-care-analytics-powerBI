@@ -1,0 +1,88 @@
+table Fact_PatientVisits
+	lineageTag: 27f28000-6c3a-428d-bb02-6d97c8efb333
+
+	column Visit_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 604459b0-0047-4114-8704-58d97ae8da62
+		summarizeBy: count
+		sourceColumn: Visit_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Patient_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: b8783f9e-1d46-48e7-97b2-352b644717e8
+		summarizeBy: none
+		sourceColumn: Patient_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Doctor_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 38c89780-862f-46c7-9aa7-3b3a6cebce23
+		summarizeBy: none
+		sourceColumn: Doctor_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e20d596-b31a-4761-8510-4da69df1a259
+		summarizeBy: none
+		sourceColumn: Date_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Treatment_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: a6c35500-5209-40bd-8a44-388958c60f07
+		summarizeBy: none
+		sourceColumn: Treatment_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Diagnosis
+		dataType: string
+		lineageTag: 61feb710-52e6-43b2-8084-ddb4fa50601e
+		summarizeBy: none
+		sourceColumn: Diagnosis
+
+		annotation SummarizationSetBy = Automatic
+
+	column Visit_Cost
+		dataType: double
+		lineageTag: aee7694d-852d-47ce-947b-b827fcf2ca2b
+		summarizeBy: sum
+		sourceColumn: Visit_Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Payment_Method
+		dataType: string
+		lineageTag: b65c7b36-0bdc-4acc-a760-2a6777786fd4
+		summarizeBy: none
+		sourceColumn: Payment_Method
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_PatientVisits = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-1CG7JKN\SQLEXPRESS"),
+				    HealthcareDW = Source{[Name="HealthcareDW"]}[Data],
+				    dbo_Fact_PatientVisits = HealthcareDW{[Schema="dbo",Item="Fact_PatientVisits"]}[Data]
+				in
+				    dbo_Fact_PatientVisits
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

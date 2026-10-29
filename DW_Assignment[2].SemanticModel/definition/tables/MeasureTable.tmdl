@@ -1,0 +1,158 @@
+table MeasureTable
+	lineageTag: 490ca0a9-fd5b-491f-b819-ac2088afce27
+
+	measure 'Total Revenue' = SUM(Fact_PatientVisits[Visit_Cost])
+		lineageTag: 9ea37272-b62e-4992-bebc-7a97d0b144ca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Visits' = COUNTROWS(Fact_PatientVisits)
+		formatString: 0
+		lineageTag: 78ccd4b8-7ace-4c46-8457-be78f834a2be
+
+	measure 'Avg Visit Cost' = DIVIDE([Total Revenue], [Total Visits])
+		lineageTag: 00f9f866-12da-4da5-8df5-f1c38ff8c8b0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Distinct Patients' = DISTINCTCOUNT(Fact_PatientVisits[Patient_ID])
+		formatString: 0
+		lineageTag: ee2324bc-a61e-47f1-84a2-571cbf413f75
+
+	measure 'Distinct Doctors' = DISTINCTCOUNT(Fact_PatientVisits[Doctor_ID])
+		formatString: 0
+		lineageTag: f1caaa11-212c-4946-ac6e-3e4f78e4b49a
+
+	measure 'Visits (Insurance)' =
+			
+			CALCULATE([Total Visits], Fact_PatientVisits[Payment_Method] = "Insurance")
+		formatString: 0
+		lineageTag: 3031cc4b-5e9d-4d91-9e71-fac457d49bd8
+
+	measure 'Insurance %' = DIVIDE([Visits (Insurance)], [Total Visits])
+		lineageTag: 06876f20-62a6-4d43-ace1-efd09135b236
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue MTD' =
+			
+			TOTALMTD([Total Revenue], Dim_Date[Full_Date])
+		lineageTag: 1be4aa05-7fdf-44e6-a7ee-7975c6210b91
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue YTD' =
+			
+			TOTALYTD([Total Revenue], Dim_Date[Full_Date])
+		lineageTag: 9c800842-a866-4392-9d1a-0c4d04c6a546
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Visits MTD' =
+			
+			TOTALMTD([Total Visits], Dim_Date[Full_Date])
+		formatString: 0
+		lineageTag: 59383e4a-6787-4a7c-b41a-6c20b71ffbe2
+
+	measure 'Visits YTD' =
+			
+			TOTALYTD([Total Visits], Dim_Date[Full_Date])
+		formatString: 0
+		lineageTag: 88394204-6247-45b9-9b33-a2f4804889cb
+
+	measure 'Total Standard Cost (Visited)' =
+			
+			SUMX(
+			    Fact_PatientVisits,
+			    RELATED(Dim_Treatment[Standard_Cost])
+			)
+		lineageTag: 47af5e0c-2c1b-4a17-92e0-c6a491bccc06
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue - Std Cost Variance' =
+			
+			[Total Revenue] - [Total Standard Cost (Visited)]
+		lineageTag: 16def831-a017-449c-aa26-b062311b6b94
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target Revenue' =
+			VAR LastYearRevenue =
+			    CALCULATE(
+			        [Total Revenue],
+			        SAMEPERIODLASTYEAR(Dim_Date[Full_Date])
+			    )
+			RETURN
+			    IF (
+			        ISBLANK(LastYearRevenue),
+			        200000,   -- fallback static target
+			        LastYearRevenue * 1.10
+			    )
+		formatString: 0
+		lineageTag: e9c1096b-f68b-491f-a0ed-38b038d1c9d9
+
+	measure 'Visits Target' = ```
+			
+			VAR LastYearVisits =
+			    CALCULATE(
+			        [Total Visits],
+			        SAMEPERIODLASTYEAR(Dim_Date[Full_Date])
+			    )
+			RETURN
+			    LastYearVisits * 1.05
+			
+			```
+		lineageTag: e997326c-a0b0-402d-8d6c-f6821034b244
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Insurance % Target' = 0.70
+		lineageTag: 805fca5b-aa92-409e-bd4d-ae1e1ae98513
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Visit Cost Target' = ```
+			
+			DIVIDE(
+			    [Total Revenue],
+			    [Total Visits],
+			    BLANK()
+			)
+			
+			
+			```
+		lineageTag: b0f63aa6-d363-41b2-9086-be8cdb3a3dbb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Visit Target' = ```
+			15
+			
+			```
+		formatString: 0
+		lineageTag: f3ef1ac4-32a3-4a7c-bcf6-2a1342529238
+
+	column MeasureName
+		lineageTag: 347b370c-10f3-414b-9578-4c5bac30bc75
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MeasureName]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MeasureTable = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "MeasureName", STRING,
+				    {
+				        { "Placeholder" }
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 81c654e24872422f94e09219148accbb
+

@@ -1,0 +1,80 @@
+table Dim_Date
+	lineageTag: 8048f4a1-2064-4cee-9606-29b635271d9c
+
+	column Date_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 51f08b37-4aeb-4514-9ff4-a859bd3fa246
+		summarizeBy: none
+		sourceColumn: Date_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Full_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 81c3ae5c-9ee9-4474-9e61-c8f952420172
+		summarizeBy: none
+		sourceColumn: Full_Date
+
+		variation Variation
+			isDefault
+			relationship: 37115f96-1b20-467d-a99b-4e0e214bc996
+			defaultHierarchy: LocalDateTable_a7db2b6b-ca2b-4a1b-b2e7-88fd7b33a850.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Day
+		dataType: int64
+		formatString: 0
+		lineageTag: e88f0d49-1196-4711-8602-dda1d5f3019b
+		summarizeBy: sum
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a9e9876-cef5-45e5-ae89-2cdcacac6022
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: d5be7010-916e-4a57-82d3-16c7238fded9
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: edff03e3-6900-49a3-b05e-34b491d9aed3
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-1CG7JKN\SQLEXPRESS"),
+				    HealthcareDW = Source{[Name="HealthcareDW"]}[Data],
+				    dbo_Dim_Date = HealthcareDW{[Schema="dbo",Item="Dim_Date"]}[Data]
+				in
+				    dbo_Dim_Date
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

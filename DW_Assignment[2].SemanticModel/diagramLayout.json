@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 200.12530690792272,
+        "y": 283.27596259501735
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1571.8395542935166,
+            "y": 459.25480826053644
+          },
+          "nodeIndex": "Dim_Date",
+          "nodeLineageTag": "8048f4a1-2064-4cee-9606-29b635271d9c",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1109.7453238981243,
+            "y": 592.86721891118168
+          },
+          "nodeIndex": "Dim_Doctor",
+          "nodeLineageTag": "240ac665-ae4e-4b52-af19-51fb6e4a4841",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1273.0491943264942,
+            "y": 1007.5281208815859
+          },
+          "nodeIndex": "Dim_Patient",
+          "nodeLineageTag": "477ea537-0044-4123-8ff3-230e020ae9e7",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1651.4906477962486,
+            "y": 1005.9720033793224
+          },
+          "nodeIndex": "Dim_Treatment",
+          "nodeLineageTag": "f96189e8-b312-4111-92df-bd8927e5c59f",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1396.7993520905866,
+            "y": 682.22066778044689
+          },
+          "nodeIndex": "Fact_PatientVisits",
+          "nodeLineageTag": "27f28000-6c3a-428d-bb02-6d97c8efb333",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 890.2348660227226,
+            "y": 835.14484590304562
+          },
+          "nodeIndex": "MeasureTable",
+          "nodeLineageTag": "490ca0a9-fd5b-491f-b819-ac2088afce27",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 850.76780745455892,
+            "y": 604.8389054464094
+          },
+          "nodeIndex": "Date_Table",
+          "nodeLineageTag": "73d187a6-b6a0-46aa-8ac4-a1c64059687e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 6
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 70.955543900968976,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

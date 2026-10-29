@@ -1,0 +1,57 @@
+table Dim_Doctor
+	lineageTag: 240ac665-ae4e-4b52-af19-51fb6e4a4841
+
+	column Doctor_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bf55005-9bcb-4195-870f-a18e428e3103
+		summarizeBy: none
+		sourceColumn: Doctor_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Doctor_Name
+		dataType: string
+		lineageTag: a92f8b36-c568-44b8-9879-4ab5d3d54ea9
+		summarizeBy: none
+		sourceColumn: Doctor_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Specialty
+		dataType: string
+		lineageTag: 36187bb7-eaeb-4d82-b72a-a84f61747d55
+		summarizeBy: none
+		sourceColumn: Specialty
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: acfc9acb-cc90-4302-befb-a3ac369abdaa
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Experience_Years
+		dataType: int64
+		formatString: 0
+		lineageTag: e1f512bc-4ea1-4631-8098-ae3e15b7509a
+		summarizeBy: none
+		sourceColumn: Experience_Years
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Doctor = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-1CG7JKN\SQLEXPRESS"),
+				    HealthcareDW = Source{[Name="HealthcareDW"]}[Data],
+				    dbo_Dim_Doctor = HealthcareDW{[Schema="dbo",Item="Dim_Doctor"]}[Data]
+				in
+				    dbo_Dim_Doctor
+
+	annotation PBI_ResultType = Table
+
